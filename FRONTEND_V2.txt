@@ -1,0 +1,95 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog
+
+import sys
+
+class Window(QMainWindow):
+    def __init__(self):
+        super(Window, self).__init__()
+        #self.width = 409
+        #self.height = 272
+#заголовок работы
+        self.setWindowTitle("Курсовая работа")
+        self.setGeometry(100, 100, 100, 100)
+        self.resize(1024,600)
+        
+        self.new_text = QtWidgets.QLabel(self)
+#ввод данных
+        self.label = QtWidgets.QLabel(self)
+        self.label.setText("Введите \n данные")
+        self.label.move(25, 282)
+#справочная информация
+        self.label1 = QtWidgets.QLabel(self)
+        self.label1.setText("Справочная \n информация")
+        self.label1.move(5, 392)
+#полоса разграничения
+        self.label_border = QtWidgets.QLabel(self)
+        self.label_border.setText("_________________")
+        self.label_border.move(0, 370)
+#кнопка для старта вычислений        
+        self.btn = QtWidgets.QPushButton(self)
+        self.btn.move(10, 347)
+        self.btn.setText("Рассчитать")
+        self.btn.setFixedWidth(75)
+        self.btn.clicked.connect(self.add_label)
+#ввод данных для рассчёта        
+        #self.input1 = QInputDialog.getDouble()
+        input_h = QtWidgets.QLineEdit(self)
+        input_h.move(100, 272)
+        input_h.resize(100,20)
+        input_h.setPlaceholderText("h, мм")
+
+        input_H = QtWidgets.QLineEdit(self)
+        input_H.move(100, 292)
+        input_H.resize(100,20)
+        input_H.setPlaceholderText("H, м")
+        
+        input_Eb = QtWidgets.QLineEdit(self)
+        input_Eb.move(100, 312)
+        input_Eb.resize(100,20)
+        input_Eb.setPlaceholderText("Eb, МПа")
+        
+        input_Rb = QtWidgets.QLineEdit(self)
+        input_Rb.move(100, 332)
+        input_Rb.resize(100,20)
+        input_Rb.setPlaceholderText("Rb, МПа")
+        
+        input_N = QtWidgets.QLineEdit(self)
+        input_N.move(100, 352)
+        input_N.resize(100,20)
+        input_N.setPlaceholderText("N, кН")
+        
+        input_Na = QtWidgets.QLineEdit(self)
+        input_Na.move(100, 372)
+        input_Na.resize(100,20)
+        input_Na.setPlaceholderText("Na, кН")
+ #картинка курсовой работы
+        label_img = QtWidgets.QLabel(self)
+        pixmap = QPixmap('image for KR.jpg')
+        label_img.setPixmap(pixmap)
+        label_img.resize(409,272)
+        label_img.move(0, 0)
+        
+
+#эта функция должна производить рассчёты
+    def add_label(self):
+        self.new_text.setText("Вычисления")
+        self.new_text.move(420, 5)
+        self.new_text.adjustSize()
+
+def application():
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+    
+
+if __name__ == "__main__":
+    application()
