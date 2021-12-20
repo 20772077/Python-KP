@@ -1,0 +1,110 @@
+from PyQt5.QtGui import QIcon, QPixmap
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication, QMainWindow, QInputDialog
+
+import sys
+
+class Window(QMainWindow):
+    mySignal = pyqtSignal(object)
+    def __init__(self):
+        super(Window, self).__init__()
+        self.mySignal.connect(lambda x: x.show() if x.isHidden() else x.hide())
+        self.new_text = QtWidgets.QLabel(self)
+        self.label = QtWidgets.QLabel(self)
+        self.label1 = QtWidgets.QLabel(self)
+        self.sprav_button = QtWidgets.QPushButton(self)
+        self.label_border = QtWidgets.QLabel(self)
+        self.btn = QtWidgets.QPushButton(self)
+        #self.input1 = QInputDialog.getDouble()
+        self.input_h = QtWidgets.QLineEdit(self)
+        self.input_H = QtWidgets.QLineEdit(self)
+        self.input_Eb = QtWidgets.QLineEdit(self)        
+        self.input_Rb = QtWidgets.QLineEdit(self)
+        self.input_N = QtWidgets.QLineEdit(self)
+        self.input_Na = QtWidgets.QLineEdit(self)
+
+        
+        self.UI()
+        
+    def UI(self, Window):
+        self.setWindowTitle("Курсовая работа")
+        self.setGeometry(100, 100, 100, 100)
+        self.resize(1024,600)
+
+        self.label.setText("Введите \n данные")
+        self.label.move(25, 282)
+
+
+        self.label1.setText("Справочная \n информация")
+        self.sprav_button.setText("Справочная информация")
+        self.sprav_button.move(10, 472)
+        self.label1.move(5, 392)
+        self.sprav_button.clicked.connect(self.show_info)
+
+        self.label_border.setText("_________________")
+        self.label_border.move(0, 370)
+
+        self.btn.move(10, 347)
+        self.btn.setText("Рассчитать")
+        self.btn.setFixedWidth(75)
+        self.btn.clicked.connect(self.add_label)
+
+        self.input_h.move(100, 272)
+        self.input_h.resize(100,20)
+        self.input_h.setPlaceholderText("h, мм")
+
+        self.input_H.move(100, 292)
+        self.input_H.resize(100,20)
+        self.input_H.setPlaceholderText("H, м")
+
+        self.input_Eb.move(100, 312)
+        self.input_Eb.resize(100,20)
+        self.input_Eb.setPlaceholderText("Eb, МПа")
+
+        self.input_Rb.move(100, 332)
+        self.input_Rb.resize(100,20)
+        self.input_Rb.setPlaceholderText("Rb, МПа")
+
+        self.input_N.move(100, 352)
+        self.input_N.resize(100,20)
+        self.input_N.setPlaceholderText("N, кН")
+
+        self.input_Na.move(100, 372)
+        self.input_Na.resize(100,20)
+        self.input_Na.setPlaceholderText("Na, кН")
+        
+        self.label_img = QtWidgets.QLabel(self)
+        self.pixmap = QPixmap('image for KR.jpg')
+        self.label_img.setPixmap(self.pixmap)
+        self.label_img.resize(409,272)
+        self.label_img.move(0, 0)
+
+
+
+#эта функция должна производить рассчёты
+    def add_label(self):
+        self.new_text.setText("Вычисления")
+        self.new_text.move(420, 5)
+        self.new_text.adjustSize()
+        
+    def show_info(self):
+        label_info = QtWidgets.QLabel(self)
+        pixmap = QPixmap('sprav_info.jpg')
+        label_info.setPixmap(pixmap)
+        label_info.resize(1177,438)
+        label_info.move(0, 0)
+        self.label_info.stateChanged.connect(lambda: self.func(self.label_info))
+
+        label_info.show()
+
+        
+
+def application():
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+    
+
+if __name__ == "__main__":
+    application()
